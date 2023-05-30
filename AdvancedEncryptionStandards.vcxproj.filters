@@ -18,5 +18,13 @@
     <ClCompile Include="AdvancedEncryptionStandards.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Gost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Gost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

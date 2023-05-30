@@ -2,19 +2,48 @@
 //
 
 #include <iostream>
+#include "Gost.h"
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << "Advanced Encryption Standards!\n";
+
+
+    //Encryption
+
+    std::cout << "Encryption Started!\n";
+
+    const std::string inputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example.txt)");
+
+    std::cout << "Input file for Encryption is " + inputFileForEncryption + "\n";
+
+    const std::string outputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
+
+    Encrypt(inputFileForEncryption.c_str(), outputFileForEncryption.c_str());
+
+	std::cout << "Encryption Completed!\n";
+
+    std::cout << "Output file for saved as " + outputFileForEncryption + "\n";
+
+
+    //Decryption
+
+    std::cout << "Decryption Started!\n";
+
+    const std::string inputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
+
+    std::cout << "Input file for Encryption is " + inputFileForDecryption + "\n";
+
+    const std::string outputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Decrypted_Result.txt)");
+
+
+	Decrypt(inputFileForDecryption.c_str(), outputFileForDecryption.c_str());
+
+	std::cout << "Decryption Completed!\n";
+
+    std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
+
+
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
