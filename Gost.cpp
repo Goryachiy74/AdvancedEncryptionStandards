@@ -25,6 +25,7 @@ void Encrypt(const char* input_file_path, const char* output_file_path)
 	CreateHandles(input_file_path, output_file_path);
 
 	CFB_ENC(key, s_block, ivalue);
+
 	CloseHandles();
 }
 
@@ -33,28 +34,29 @@ void Decrypt(const char* input_file_path, const char* output_file_path)
 	CreateHandles(input_file_path, output_file_path);
 
 	CFB_DEC(key, s_block, ivalue);
+
 	CloseHandles();
 }
 
 void CreateHandles(const char* input_file_path, const char* output_file_path)
 {
-		hFileIn = CreateFileA(
-			input_file_path,
-			GENERIC_READ,
-			FILE_SHARE_READ,
-			NULL,
-			OPEN_EXISTING,
-			FILE_ATTRIBUTE_NORMAL,
-			NULL);
+	hFileIn = CreateFileA(
+		input_file_path,
+		GENERIC_READ,
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_EXISTING,
+		FILE_ATTRIBUTE_NORMAL,
+		NULL);
 
-		hFileOut = CreateFileA(
-			output_file_path,
-			GENERIC_WRITE,
-			FILE_SHARE_READ,
-			NULL,
-			OPEN_ALWAYS,
-			NULL,
-			NULL);
+	hFileOut = CreateFileA(
+		output_file_path,
+		GENERIC_WRITE,
+		FILE_SHARE_READ,
+		NULL,
+		OPEN_ALWAYS,
+		NULL,
+		NULL);
 }
 
 void CloseHandles()
@@ -70,7 +72,7 @@ void CFB_ENC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 	DWORD dwBytesRead = 0;
 	BOOL bResult = FALSE;
 
-	while (1)
+	while (true)
 	{
 		block = 0;
 		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, NULL);
@@ -95,7 +97,7 @@ void CFB_DEC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 	unsigned __int64 S = gamma;
 	DWORD dwBytesRead = 0;
 	BOOL bResult = FALSE;
-	while (1)
+	while (true)
 	{
 		block = 0;
 		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, NULL);

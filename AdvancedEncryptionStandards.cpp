@@ -7,42 +7,42 @@
 
 int main()
 {
-    std::cout << "Advanced Encryption Standards!\n";
+	std::cout << "Advanced Encryption Standards!\n";
 
 
-    //Encryption
+	//Encryption
 
-    std::cout << "Encryption Started!\n";
+	std::cout << "Encryption Started!\n";
 
-    const std::string inputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example.txt)");
+	const std::string inputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example.txt)");
 
-    std::cout << "Input file for Encryption is " + inputFileForEncryption + "\n";
+	std::cout << "Input file for Encryption is " + inputFileForEncryption + "\n";
 
-    const std::string outputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
+	const std::string outputFileForEncryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
 
-    Encrypt(inputFileForEncryption.c_str(), outputFileForEncryption.c_str());
+	Encrypt(inputFileForEncryption.c_str(), outputFileForEncryption.c_str());
 
 	std::cout << "Encryption Completed!\n";
 
-    std::cout << "Output file for saved as " + outputFileForEncryption + "\n";
+	std::cout << "Output file for saved as " + outputFileForEncryption + "\n";
 
 
-    //Decryption
+	//Decryption
 
-    std::cout << "Decryption Started!\n";
+	std::cout << "Decryption Started!\n";
 
-    const std::string inputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
+	const std::string inputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Encrypted_Result.txt)");
 
-    std::cout << "Input file for Encryption is " + inputFileForDecryption + "\n";
+	std::cout << "Input file for Encryption is " + inputFileForDecryption + "\n";
 
-    const std::string outputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Decrypted_Result.txt)");
+	const std::string outputFileForDecryption(SOLUTION_DIR  R"(Example\GOST_Example_Decrypted_Result.txt)");
 
 
 	Decrypt(inputFileForDecryption.c_str(), outputFileForDecryption.c_str());
 
 	std::cout << "Decryption Completed!\n";
 
-    std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
+	std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
 
 
 }
