@@ -129,9 +129,11 @@
   <ItemGroup>
     <ClCompile Include="AdvancedEncryptionStandards.cpp" />
     <ClCompile Include="Gost.cpp" />
+    <ClCompile Include="sha256.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Gost.h" />
+    <ClInclude Include="sha256.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

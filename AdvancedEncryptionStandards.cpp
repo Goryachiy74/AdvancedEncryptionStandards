@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Gost.h"
+#include "sha256.h"
 
 
 int main()
@@ -44,6 +45,21 @@ int main()
 
 	std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
 
+	//SHA256
+	//implemented only for numbers
+
+	std::string messageToHash;
+
+	for (int i = 0; i < 1024; i++)
+	{
+		messageToHash += std::to_string(i);
+	}
+
+	std::string hashedMessage = hash_message(messageToHash);
+
+	std::cout << hashedMessage + "\n";
+
+	std::cout << "Hash length is " + std::to_string(hashedMessage.length()) + "\n";
 
 }
 
