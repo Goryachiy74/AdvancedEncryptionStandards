@@ -12,7 +12,7 @@ int main()
 	std::cout << "Advanced Encryption Standards!\n";
 
 
-	//Encryption
+	//Encryption GOST
 
 	std::cout << "Encryption Started!\n";
 
@@ -29,7 +29,7 @@ int main()
 	std::cout << "Output file for saved as " + outputFileForEncryption + "\n";
 
 
-	//Decryption
+	//Decryption GOST 
 
 	std::cout << "Decryption Started!\n";
 
@@ -47,8 +47,6 @@ int main()
 	std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
 
 	//SHA256
-	//implemented only for numbers
-
 	std::string messageToHash;
 
 	for (int i = 0; i < 255; i++)
@@ -56,34 +54,52 @@ int main()
 		messageToHash += std::to_string(i);
 	}
 
-
 	SHA256 sha;
 	sha.update(messageToHash);
 	uint8_t* digest = sha.digest();
 
-	std::cout << "Message to Hash is : "+ messageToHash +"\n" << std::endl;
+	std::cout << "Message to Hash is : " + messageToHash + "\n" << std::endl;
 
+	std::string messageAfterSHA = SHA256::toString(digest);
 
-	std::cout << SHA256::toString(digest) << std::endl;
+	std::cout << "Message after Hash function is : " + messageAfterSHA + "\n" << std::endl;
 
 	delete[] digest;
 
-	BASE_TYPE* privateKey;
+	std::string binary = GetBinaryRepresentationAsString(messageAfterSHA);
 
-	size_t kSize = 2 * NUMBER_OF_KEYS * sizeof(BASE_TYPE);
+	std::cout << "Binary Representation is : " + binary + "\n" << std::endl;
 
-	privateKey = (BASE_TYPE*)malloc(kSize);
+	std::cout << "Size of Binary Representation is " + std::to_string(binary.length() - 1) + "\n" << std::endl; // -1 because of end of line 
+	const char* binArr = binary.c_str();
 
-	std::string publicKey[2 * NUMBER_OF_KEYS];
+	int* t = GetBinaryRepresentation(messageAfterSHA);
 
-	SecretKeyGeneration(privateKey);
 
-	PublicKeyGeneration(privateKey, publicKey);
+	//Lamport Signature test
+	std::string text = "Test Message to sign and validate signature";
+
+	int* document = GetDocument(text);
+
+	BASE_TYPE* privateKey = PrivateKeyGeneration();
+
+	std::string* publicKey = PublicKeyGeneration(privateKey);
 
 	std::cout << "Public Key [0] " + publicKey[0] + "\n";
 
 	std::cout << "Public Key [1] " + publicKey[1] + "\n";
 
+	std::cout << "Public Key [511] " + publicKey[511] + "\n";
 
+	BASE_TYPE* signature = GetSignature(privateKey, document);
+
+	if (SignatureIsValid(signature, document, publicKey))
+	{
+		std::cout << "Signature is Valid\n";
+	}
+	else
+	{
+		std::cout << "Signature is Invalid\n";
+	}
 }
 

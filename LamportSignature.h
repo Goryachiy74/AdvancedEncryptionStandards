@@ -19,8 +19,18 @@
 #define NUMBER_OF_KEYS 256
 
 
-void SecretKeyGeneration(BASE_TYPE* privateKey);
+BASE_TYPE* PrivateKeyGeneration();
 
-void PublicKeyGeneration(BASE_TYPE* privateKey, std::string* publicKey);
+std::string* PublicKeyGeneration(BASE_TYPE* privateKey);
+
+std::string GetBinaryRepresentationAsString(std::string message);
+
+int* GetBinaryRepresentation(std::string message);
+
+BASE_TYPE* GetSignature(BASE_TYPE* privateKey, int* document);
+
+bool SignatureIsValid(BASE_TYPE* signature, int* document, std::string* publicKey);
+
+int* GetDocument(std::string text);
 
 #endif
