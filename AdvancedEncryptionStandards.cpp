@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Gost.h"
+#include "LamportSignature.h"
 #include "sha256.h"
 
 
@@ -50,16 +51,39 @@ int main()
 
 	std::string messageToHash;
 
-	for (int i = 0; i < 1024; i++)
+	for (int i = 0; i < 255; i++)
 	{
 		messageToHash += std::to_string(i);
 	}
 
-	std::string hashedMessage = hash_message(messageToHash);
 
-	std::cout << hashedMessage + "\n";
+	SHA256 sha;
+	sha.update(messageToHash);
+	uint8_t* digest = sha.digest();
 
-	std::cout << "Hash length is " + std::to_string(hashedMessage.length()) + "\n";
+	std::cout << "Message to Hash is : "+ messageToHash +"\n" << std::endl;
+
+
+	std::cout << SHA256::toString(digest) << std::endl;
+
+	delete[] digest;
+
+	BASE_TYPE* privateKey;
+
+	size_t kSize = 2 * NUMBER_OF_KEYS * sizeof(BASE_TYPE);
+
+	privateKey = (BASE_TYPE*)malloc(kSize);
+
+	std::string publicKey[2 * NUMBER_OF_KEYS];
+
+	SecretKeyGeneration(privateKey);
+
+	PublicKeyGeneration(privateKey, publicKey);
+
+	std::cout << "Public Key [0] " + publicKey[0] + "\n";
+
+	std::cout << "Public Key [1] " + publicKey[1] + "\n";
+
 
 }
 
