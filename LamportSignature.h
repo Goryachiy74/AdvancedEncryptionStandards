@@ -14,7 +14,6 @@
 #endif
 
 
-
 #define BASE_TYPE unsigned __int64
 #define NUMBER_OF_KEYS 256
 

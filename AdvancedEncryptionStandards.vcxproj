@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AdvancedEncryptionStandards.cpp" />
+    <ClCompile Include="DiffieHellman.cpp" />
     <ClCompile Include="Gost.cpp" />
     <ClCompile Include="LamportSignature.cpp" />
     <ClCompile Include="sha256.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DiffieHellman.h" />
     <ClInclude Include="Gost.h" />
     <ClInclude Include="LamportSignature.h" />
     <ClInclude Include="sha256.h" />

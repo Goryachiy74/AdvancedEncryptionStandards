@@ -1,23 +1,23 @@
-#include <windows.h> 
+#include <windows.h>
 #include "Gost.h"
 
 
 HANDLE hFileIn;
 HANDLE hFileOut;
 
-unsigned __int32 key[8] = { 1,2,3,4,5,6,7,8 };
+unsigned __int32 key[8] = {1, 2, 3, 4, 5, 6, 7, 8};
 
 unsigned __int64 ivalue = 170;
 
 short s_block[8][16] = {
-{ 4, 10, 9, 2, 13, 8, 0, 14, 6, 11, 1, 12, 7, 15, 5, 3 },
-{ 14, 11, 4, 12, 6, 13, 15, 10, 2, 3, 8, 1, 0, 7, 5, 9 },
-{ 5, 8, 1, 13, 10, 3, 4, 2, 14, 15, 12, 7, 6, 0, 9, 11 },
-{ 7, 13, 10, 1, 0, 8, 9, 15, 14, 4, 6, 12, 11, 2, 5, 3 },
-{ 6, 12, 7, 1, 5, 15, 13, 8, 4, 10, 9, 14, 0, 3, 11, 2 },
-{ 4, 11, 10, 0, 7, 2, 1, 13, 3, 6, 8, 5, 9, 12, 15, 14 },
-{ 13, 11, 4, 1, 3, 15, 5, 9, 0, 10, 14, 7, 6, 8, 2, 12 },
-{ 1, 15, 13, 0, 5, 7, 10, 4, 9, 2, 3, 14, 6, 11, 8, 12 }
+	{4, 10, 9, 2, 13, 8, 0, 14, 6, 11, 1, 12, 7, 15, 5, 3},
+	{14, 11, 4, 12, 6, 13, 15, 10, 2, 3, 8, 1, 0, 7, 5, 9},
+	{5, 8, 1, 13, 10, 3, 4, 2, 14, 15, 12, 7, 6, 0, 9, 11},
+	{7, 13, 10, 1, 0, 8, 9, 15, 14, 4, 6, 12, 11, 2, 5, 3},
+	{6, 12, 7, 1, 5, 15, 13, 8, 4, 10, 9, 14, 0, 3, 11, 2},
+	{4, 11, 10, 0, 7, 2, 1, 13, 3, 6, 8, 5, 9, 12, 15, 14},
+	{13, 11, 4, 1, 3, 15, 5, 9, 0, 10, 14, 7, 6, 8, 2, 12},
+	{1, 15, 13, 0, 5, 7, 10, 4, 9, 2, 3, 14, 6, 11, 8, 12}
 };
 
 void Encrypt(const char* input_file_path, const char* output_file_path)
@@ -44,19 +44,19 @@ void CreateHandles(const char* input_file_path, const char* output_file_path)
 		input_file_path,
 		GENERIC_READ,
 		FILE_SHARE_READ,
-		NULL,
+		nullptr,
 		OPEN_EXISTING,
 		FILE_ATTRIBUTE_NORMAL,
-		NULL);
+		nullptr);
 
 	hFileOut = CreateFileA(
 		output_file_path,
 		GENERIC_WRITE,
 		FILE_SHARE_READ,
-		NULL,
+		nullptr,
 		OPEN_ALWAYS,
 		NULL,
-		NULL);
+		nullptr);
 }
 
 void CloseHandles()
@@ -75,7 +75,7 @@ void CFB_ENC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 	while (true)
 	{
 		block = 0;
-		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, NULL);
+		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, nullptr);
 		if (bResult && dwBytesRead == 0)
 		{
 			break;
@@ -84,10 +84,9 @@ void CFB_ENC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 		block = block ^ encrypt(S, key, s_block);
 		S = block;
 
-		WriteFile(hFileOut, &block, 8, NULL, NULL);
+		WriteFile(hFileOut, &block, 8, nullptr, nullptr);
 	}
 	SetEndOfFile(hFileOut);
-
 }
 
 void CFB_DEC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
@@ -100,7 +99,7 @@ void CFB_DEC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 	while (true)
 	{
 		block = 0;
-		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, NULL);
+		bResult = ReadFile(hFileIn, &block, 8, &dwBytesRead, nullptr);
 		if (bResult && dwBytesRead == 0)
 		{
 			break;
@@ -109,7 +108,7 @@ void CFB_DEC(unsigned __int32* key, short s_block[][16], unsigned __int64 gamma)
 		block = block ^ encrypt(S, key, s_block);
 		S = e_block;
 
-		WriteFile(hFileOut, &block, 8, NULL, NULL);
+		WriteFile(hFileOut, &block, 8, nullptr, nullptr);
 	}
 	SetEndOfFile(hFileOut);
 }

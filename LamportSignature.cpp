@@ -7,10 +7,12 @@
 #include <bitset>
 #include <sstream>
 
-BASE_TYPE rand_uint64() {
+BASE_TYPE rand_uint64()
+{
 	BASE_TYPE r = 0;
-	for (int i = LOOP_COUNT; i > 0; i--) {
-		r = r * (RAND_MAX + (BASE_TYPE)1) + rand();
+	for (int i = LOOP_COUNT; i > 0; i--)
+	{
+		r = r * (RAND_MAX + static_cast<unsigned __int64>(1)) + rand();
 	}
 	return r;
 }
@@ -28,7 +30,7 @@ BASE_TYPE* PrivateKeyGeneration()
 
 	size_t kSize = 2 * NUMBER_OF_KEYS * sizeof(BASE_TYPE);
 
-	privateKey = (BASE_TYPE*)malloc(kSize);
+	privateKey = static_cast<unsigned __int64*>(malloc(kSize));
 
 	for (int i = 0; i < 2 * NUMBER_OF_KEYS; i++)
 	{
@@ -40,7 +42,7 @@ BASE_TYPE* PrivateKeyGeneration()
 
 std::string* PublicKeyGeneration(BASE_TYPE* privateKey)
 {
-	std::string* publicKey = new std::string[2 * NUMBER_OF_KEYS];
+	auto publicKey = new std::string[2 * NUMBER_OF_KEYS];
 	SHA256 sha;
 	for (int i = 0; i < 2 * NUMBER_OF_KEYS; i++)
 	{
@@ -68,10 +70,10 @@ int* GetBinaryRepresentation(std::string message)
 {
 	std::string binaryMessage = GetBinaryRepresentationAsString(message);
 	const char* binArrOfChars = binaryMessage.c_str();
-	int* binArrOfInts = new int[NUMBER_OF_KEYS];
+	auto binArrOfInts = new int[NUMBER_OF_KEYS];
 	for (int i = 0; i < (binaryMessage.length() - 1); i++)
 	{
-		binArrOfInts[i] = binArrOfChars[i] - '0';//Convert char to int
+		binArrOfInts[i] = binArrOfChars[i] - '0'; //Convert char to int
 	}
 	return binArrOfInts;
 }
@@ -80,7 +82,7 @@ BASE_TYPE* GetSignature(BASE_TYPE* privateKey, int* document)
 {
 	size_t sSize = NUMBER_OF_KEYS * sizeof(BASE_TYPE);
 
-	BASE_TYPE* signature = (BASE_TYPE*)malloc(sSize);
+	BASE_TYPE* signature = static_cast<unsigned __int64*>(malloc(sSize));
 
 	for (int i = 0; i < NUMBER_OF_KEYS; i++)
 	{
