@@ -7,7 +7,9 @@ long long int power(long long int g, long long int h,
 {
 	if (h == 1)
 		return g;
-	return (static_cast<long long int>(pow(g, h)) % Ps);
+	const auto power = pow(g, h);
+	const auto result = static_cast<long long int>(power) % Ps;
+	return result;
 }
 
 int modularExponentiation(int base, int expo, int mod)
