@@ -1,6 +1,8 @@
 #include <windows.h>
 #include "Gost.h"
 
+#include <cstdint>
+
 
 HANDLE hFileIn;
 HANDLE hFileOut;
@@ -20,20 +22,43 @@ short s_block[8][16] = {
 	{1, 15, 13, 0, 5, 7, 10, 4, 9, 2, 3, 14, 6, 11, 8, 12}
 };
 
-void Encrypt(const char* input_file_path, const char* output_file_path)
+unsigned __int32* sha256ToGostKey(uint8_t* sha)
+{
+	auto key = new uint32_t[8]{ 0 };
+
+	for(int i=0; i<32; i+=4)
+	{
+		key[i/4] <<= 8;
+		key[i/4] += sha[i];
+		key[i/4] <<= 8;
+		key[i/4] += sha[i+1];
+		key[i/4] <<= 8;
+		key[i/4] += sha[i+2];
+		key[i/4] <<= 8;
+		key[i/4] += sha[i+3];
+	}
+
+	return key;
+}
+
+void Encrypt(const char* input_file_path, const char* output_file_path, uint8_t* sha)
 {
 	CreateHandles(input_file_path, output_file_path);
 
-	CFB_ENC(key, s_block, ivalue);
+	auto shaKey = sha256ToGostKey(sha);
+
+	CFB_ENC(shaKey, s_block, ivalue);
 
 	CloseHandles();
 }
 
-void Decrypt(const char* input_file_path, const char* output_file_path)
+void Decrypt(const char* input_file_path, const char* output_file_path, uint8_t* sha)
 {
 	CreateHandles(input_file_path, output_file_path);
 
-	CFB_DEC(key, s_block, ivalue);
+	auto shaKey = sha256ToGostKey(sha);
+
+	CFB_DEC(shaKey, s_block, ivalue);
 
 	CloseHandles();
 }
