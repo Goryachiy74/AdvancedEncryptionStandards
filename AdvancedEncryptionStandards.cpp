@@ -9,11 +9,8 @@
 #include "sha256.h"
 
 
-int main()
+void testGOST()
 {
-	std::cout << "Advanced Encryption Standards!\n";
-
-
 	//Encryption GOST
 
 	std::cout << "Encryption Started!\n";
@@ -47,7 +44,10 @@ int main()
 	std::cout << "Decryption Completed!\n";
 
 	std::cout << "Output file for saved as " + outputFileForDecryption + "\n";
+}
 
+void testSHA256()
+{
 	//SHA256
 	std::string messageToHash;
 
@@ -77,8 +77,10 @@ int main()
 	const char* binArr = binary.c_str();
 
 	int* t = GetBinaryRepresentation(messageAfterSHA);
+}
 
-
+void testLamportSignature()
+{
 	//Lamport Signature test
 	std::string text = "Test Message to sign and validate signature";
 
@@ -104,27 +106,29 @@ int main()
 	{
 		std::cout << "Signature is Invalid\n";
 	}
+}
 
-
+void testDH()
+{
 	//Diffie-Hellman
 
 	long long int Ps, Gs, p, g, q, h, K_A, K_B;
 
 	// Both persons agrees on public keys Gs and Ps
-	Ps = getLargestPrime(14000000);
+	Ps = getLargestPrime(24);
 	std::cout << "Value of Ps is: " << Ps << std::endl;
 
-	Gs = getPrimitive(Ps); // Gs is primitive root for Ps
+	Gs =  getPrimitive(Ps); // Gs is primitive root for Ps
 	std::cout << "Value of Gs is: " << Gs << std::endl;
 
 	// g is the private key chosen by Alice
-	g = 4902; // The chosen private key is g
+	g = 4; // The chosen private key is g
 	std::cout << "Private key g is: " << g << std::endl;
 
 	p = power(Gs, g, Ps); // fetches the generated key
 
 	// h will be the chosen private key by Bob
-	h = 37519; // The chosen private key is h
+	h = 3; // The chosen private key is h
 	std::cout << "Private key h is: " << h << std::endl;
 
 	q = power(Gs, h, Ps); // fetches the generated key
@@ -135,4 +139,18 @@ int main()
 	std::cout << "Alice's Secret key is: " << K_A << std::endl;
 
 	std::cout << "Bob's Secret key is: " << K_B << std::endl;
+}
+
+int main()
+{
+	std::cout << "Advanced Encryption Standards!\n";
+	
+	testGOST();
+
+	testSHA256();
+
+	testLamportSignature();
+
+	testDH();
+	
 }
